@@ -825,7 +825,7 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
             if (info == null) {
                 return PackageManagerCompat.INSTALL_FAILED_INVALID_APK;
             }
-
+            info.packageName += ".plugin";
             apkfile = PluginDirHelper.getPluginApkFile(mContext, info.packageName);
 
             if ((flags & PackageManagerCompat.INSTALL_REPLACE_EXISTING) != 0) {

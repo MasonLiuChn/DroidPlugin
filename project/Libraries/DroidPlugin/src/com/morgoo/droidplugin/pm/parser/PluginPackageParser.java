@@ -260,9 +260,11 @@ public class PluginPackageParser {
         if (data != null) {
             ActivityInfo activityInfo = mParser.generateActivityInfo(data, flags);
             fixApplicationInfo(activityInfo.applicationInfo);
-            if (TextUtils.isEmpty(activityInfo.processName)) {
-                activityInfo.processName = activityInfo.packageName;
-            }
+            activityInfo.packageName = mPackageName;
+            activityInfo.processName = mPackageName;
+//            if (TextUtils.isEmpty(activityInfo.processName)) {
+//                activityInfo.processName = activityInfo.packageName;
+//            }
             return activityInfo;
         }
         return null;
@@ -407,6 +409,8 @@ public class PluginPackageParser {
 
 
     private ApplicationInfo fixApplicationInfo(ApplicationInfo applicationInfo) {
+        applicationInfo.packageName = mPackageName;
+        applicationInfo.processName = mPackageName;
         if (applicationInfo.sourceDir == null) {
             applicationInfo.sourceDir = mPluginFile.getPath();
         }
@@ -479,6 +483,7 @@ public class PluginPackageParser {
 
     private PackageInfo fixPackageInfo(PackageInfo packageInfo) {
         packageInfo.gids = mHostPackageInfo.gids;
+        packageInfo.packageName = mPackageName;
         fixApplicationInfo(packageInfo.applicationInfo);
         return packageInfo;
     }
